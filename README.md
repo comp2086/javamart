@@ -1,1 +1,1 @@
-# javamart
+JavaMart app, Advanced OOP.
