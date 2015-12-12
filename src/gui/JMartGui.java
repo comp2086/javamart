@@ -3,11 +3,6 @@
  * November 12, 2015
  * Handles our gui
  */
-/**
- * Java Final Assignment
- * Anthony Scinocco 200271982
- * This handles the GUI for our java assignment
- */
 package gui;
 import java.awt.*;
 import java.awt.event.*;
