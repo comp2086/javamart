@@ -9,8 +9,9 @@ package hr;
 public abstract class Employee 
 {
     //employee fields
-    private String id, firstName, lastName, position,
+    private String firstName, lastName, position,
                    department, address, phone, sin;
+    private int id;
     
     
     /**
@@ -111,12 +112,17 @@ public abstract class Employee
         return this.sin;
     }
     
-    public String getId()
+    public int getId()
     {
         return this.id;
     }
     
     /*******Mutator Methods***********/
+    
+    public void setId(int id)
+    {
+        this.id = id;
+    }
     
     public void setFirstName(String firstName)
     {
