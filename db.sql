@@ -10,7 +10,8 @@ CREATE TABLE employee
 	department VARCHAR(25),
 	address VARCHAR(100),
 	phone VARCHAR(12),
-	sin CHAR(9)
+	sin CHAR(9),
+    commissionRate DECIMAL(5,2)
 );
 
 
@@ -48,4 +49,17 @@ CREATE TABLE invoiceJunction
 	FOREIGN KEY(employeeId) REFERENCES employee(id),
 	FOREIGN KEY(productId) REFERENCES product(id),
 	FOREIGN KEY(invoiceId) REFERENCES invoice(id)
+);
+
+-- Proposed Changes
+CREATE TABLE positions
+(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    position VARCHAR(50)
+);
+
+CREATE TABLE departments
+(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    department VARCHAR(50)
 );
