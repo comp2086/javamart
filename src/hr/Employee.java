@@ -43,6 +43,32 @@ public abstract class Employee
        this.sin         = sin;
     }
     
+    /*******Employee toString*********/
+    
+    @Override
+    public String toString()
+    {
+        String employeeDescription = "";
+        employeeDescription += "\nName:\t" + getFullName();
+        employeeDescription += "\nID:\t" + getId();
+        employeeDescription += "\nDepartment:\t" + getDepartment();
+        employeeDescription += "\nPosition:\t" + getPosition();
+        employeeDescription += "\nAddress:\t" + getAddress();
+        employeeDescription += "\nPhone Number:\t" + getPhone();
+        employeeDescription += "\nSIN:\t" + getSin();
+        
+        return employeeDescription;
+    }
+    
+    /*******Abstract Methods**********/
+    
+    /**
+     * Allows employee earnings to be calculated 
+     * as necessary
+     * @return - employee earnings
+     */
+    public abstract double calculateEarnings();
+    
     /*******Accessor Methods**********/
     
     public String getFullName()
@@ -83,6 +109,11 @@ public abstract class Employee
     public String getSin()
     {
         return this.sin;
+    }
+    
+    public String getId()
+    {
+        return this.id;
     }
     
     /*******Mutator Methods***********/

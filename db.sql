@@ -11,7 +11,8 @@ CREATE TABLE employee
 	address VARCHAR(100),
 	phone VARCHAR(12),
 	sin CHAR(9),
-    commissionRate DECIMAL(5,2)
+    commissionRate DECIMAL(5,5),
+    sales INT
 );
 
 
