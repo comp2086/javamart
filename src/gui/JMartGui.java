@@ -48,7 +48,13 @@ public class JMartGui extends JFrame
         JLabel lblPanelFour = new JLabel("",SwingConstants.CENTER);
         JPanel searchProductPanel = new SearchProductPanel();
         searchProductPanel.add(lblPanelFour);
-        tabPane.addTab("Search Product's",null,searchProductPanel,"Third Panel");
+        tabPane.addTab("Search Product's",null,searchProductPanel,"Fourth Panel");
+        
+        //invoice panel
+        JLabel lblPanelFive = new JLabel("",SwingConstants.CENTER);
+        JPanel invoicePanel = new InvoicePanel();
+        invoicePanel.add(lblPanelFive);
+        tabPane.addTab("Invoice",null,invoicePanel,"Fifth Panel");
         
         //build the panels
         northPanel = new GreetingPanel();
