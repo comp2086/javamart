@@ -16,7 +16,7 @@ import javax.swing.*;
 public class JMartGui extends JFrame
 {
     private JPanel centerPanel, northPanel, southPanel;
-    private JButton exitButton, submitButton, clearAllButton;
+    private JButton exitButton;
     
     public JMartGui()
     {
