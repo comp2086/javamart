@@ -48,7 +48,35 @@ public class Product
         this.manu = manu;
     }
     
+    /*******Product and manufacturer toString****/
     
+    
+    /**
+     * @return - string representation of a product 
+     */
+    @Override
+    public String toString()
+    {
+        String productDescription = "";
+        
+        productDescription += "\nName:\t" + getName();
+        productDescription += "\nID:\t" + getId();
+        productDescription += "\nSerial Number:\t" + getSerialNumber();
+        productDescription += "\nDescription:\t" + getDescription();
+        productDescription += "\nCost to make:\t$" + getCost();
+        productDescription += "\nPrice charged:\t$" + getPrice();
+        productDescription += "\nProduct Available?:\t" + getAvailability();
+        
+        //add product manufacturer to the string representation
+        productDescription += getManufacturerToString();
+        
+        return productDescription;
+    }
+    
+    public String getManufacturerToString()
+    {
+        return this.manu.toString();
+    }
     
     /*****Mutator Methods******/
     public void setName(String name)
@@ -174,7 +202,7 @@ public class Product
        return this.price;
     }
     
-    public boolean setAvailability()
+    public boolean getAvailability()
     {
         return this.availability;
     }
