@@ -52,7 +52,8 @@ CREATE TABLE invoiceJunction
 	FOREIGN KEY(invoiceId) REFERENCES invoice(id)
 );
 
--- Proposed Changes
+-- Possbile changes if we decide not to hardcode values
+/**
 CREATE TABLE positions
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -64,3 +65,4 @@ CREATE TABLE departments
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     department VARCHAR(50)
 );
+*/
