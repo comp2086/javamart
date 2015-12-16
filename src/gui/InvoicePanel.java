@@ -1,8 +1,3 @@
-/**
- * Anthony Scinocco 200271982
- * December 12, 2015
- * Handles our invoice panel
- */
 package gui;
 import java.awt.*;
 import javax.swing.*;
@@ -17,55 +12,86 @@ public class InvoicePanel extends JPanel
     private final JTextField txtTotalCost;
 
     //buttons
-    private final JButton calculateButton, clearAllButton;
+    private final JButton btnCalc, btnClear, btnAddEmployee, btnAddProduct;
     
     //comboboxes
-    private final JComboBox<String> cmbEmployees, cmbProducts;
+    private final JList<String> lstEmployees, lstProducts, lstSelectedEmps, lstSelectedProds;
     
     //temp solution to fill out combo boxes
-    private static final String[] employees = {"Fill from DB"},
-                                  products = {"Fill from DB"};
+    private static final String[] employees = {"Employee 1", "Employee 2"},
+                                  products = {"Product 1", "Product 2"};
     
     public InvoicePanel()
     {
-        //set layout
-        setLayout(new GridLayout(10,2));
+        // Layout
+        setLayout(new GridLayout(3,3));
+        GridBagConstraints gbc = new GridBagConstraints();
         
-        //initialize buttons
-        //NOTE: NEED TO ATTACH ACTION LISTENERS RIGHT AFTER BUTTON CREATION
-        calculateButton = new JButton("Calculate");
-        //SUBMIT BUTTON ACTION LISTENER
-        clearAllButton = new JButton("Clear All");
-        //CLEAR ALL ACTION LISTENER
+        btnCalc = new JButton("Calculate");
+        btnClear = new JButton("Clear All");
+        btnAddEmployee = new JButton("Add >>");
+        btnAddProduct = new JButton("Add >>");
         
-        //area to hold buttpns so that we can size them properly
-        JPanel buttonPane = new JPanel();
-        buttonPane.add(calculateButton);
-        buttonPane.add(clearAllButton);
+        JPanel btnPaneMain = new JPanel();
+        btnPaneMain.setLayout(new GridBagLayout());
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        btnPaneMain.add(btnCalc, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        btnPaneMain.add(btnClear, gbc);
         
-        //initialize the labels
+        JPanel addEmpPane = new JPanel();
+        addEmpPane.setLayout(new GridBagLayout());
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        addEmpPane.add(btnAddEmployee, gbc);
+        
+        JPanel addProdPane = new JPanel();
+        addProdPane.setLayout(new GridBagLayout());
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        addProdPane.add(btnAddProduct, gbc);
+        
+        // Labels
         lblTotalCost = new JLabel("Total Cost:");
         lblEmployees = new JLabel("Employee:");
         lblProducts = new JLabel("Product:");
         
-        //initialize the text felds
+        // Text felds
         txtTotalCost = new JTextField(15);
         
-        //combo boxes
-        cmbEmployees = new JComboBox<String>(employees);
-        cmbProducts = new JComboBox<String>(products);
+        // Multiple selection lists
         
-        //set the border
+        lstEmployees = new JList(employees);
+        lstSelectedEmps = new JList();
+        lstProducts = new JList(products);
+        lstSelectedProds = new JList();
+        
+        lstEmployees.setVisibleRowCount(5);
+        lstSelectedEmps.setVisibleRowCount(5);
+        lstEmployees.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        lstSelectedEmps.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+        lstProducts.setVisibleRowCount(5);
+        lstSelectedProds.setVisibleRowCount(5);
+        lstProducts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        lstSelectedProds.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+        // Border
         setBorder(BorderFactory.createTitledBorder("Invoice Information"));
         
-        //add the labels
         add(lblEmployees);
-        add(cmbEmployees);
+        add(new JScrollPane(lstEmployees));
+        add(addEmpPane);
+        add(new JScrollPane(lstSelectedEmps));
         add(lblProducts);
-        add(cmbProducts);
+        add(new JScrollPane(lstProducts));
+        add(addProdPane);
+        add(new JScrollPane(lstSelectedProds));
         add(lblTotalCost);
         add(txtTotalCost);
-        add(buttonPane);
+        add(btnPaneMain);
         
     }
 }
