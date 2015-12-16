@@ -1,5 +1,7 @@
 package gui;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class InvoicePanel extends JPanel
@@ -29,8 +31,30 @@ public class InvoicePanel extends JPanel
         
         btnCalc = new JButton("Calculate");
         btnClear = new JButton("Clear All");
+        
         btnAddEmployee = new JButton("Add >>");
+        btnAddEmployee.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent event)
+                    {
+                        lstSelectedEmps.setListData(lstEmployees.getSelectedValuesList().toArray(new String[0]));
+                    } 
+                }
+        );
+        
         btnAddProduct = new JButton("Add >>");
+        btnAddProduct.addActionListener(
+                new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent event)
+                    {
+                        lstSelectedProds.setListData(lstProducts.getSelectedValuesList().toArray(new String[0]));
+                    } 
+                }
+        );
         
         JPanel btnPaneMain = new JPanel();
         btnPaneMain.setLayout(new GridBagLayout());
@@ -62,7 +86,6 @@ public class InvoicePanel extends JPanel
         txtTotalCost = new JTextField(15);
         
         // Multiple selection lists
-        
         lstEmployees = new JList(employees);
         lstSelectedEmps = new JList();
         lstProducts = new JList(products);
