@@ -1,5 +1,7 @@
 package gui;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class InvoicePanel extends JPanel
@@ -18,7 +20,7 @@ public class InvoicePanel extends JPanel
     private final JList<String> lstEmployees, lstProducts, lstSelectedEmps, lstSelectedProds;
     
     //temp solution to fill out combo boxes
-    private static final String[] employees = {"Employee 1", "Employee 2"},
+    private static final String[] employees = {"Employee 1", "Employee 2", "Employee 3"},
                                   products = {"Product 1", "Product 2"};
     
     public InvoicePanel()
@@ -27,10 +29,34 @@ public class InvoicePanel extends JPanel
         setLayout(new GridLayout(3,3));
         GridBagConstraints gbc = new GridBagConstraints();
         
+        // Multiple selection lists
+        lstEmployees = new JList(employees);
+        lstSelectedEmps = new JList();
+        lstProducts = new JList(products);
+        lstSelectedProds = new JList();
+        
+        lstEmployees.setVisibleRowCount(5);
+        lstSelectedEmps.setVisibleRowCount(5);
+        lstEmployees.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        lstSelectedEmps.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
+        lstProducts.setVisibleRowCount(5);
+        lstSelectedProds.setVisibleRowCount(5);
+        lstProducts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        lstSelectedProds.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        
         btnCalc = new JButton("Calculate");
         btnClear = new JButton("Clear All");
+        
         btnAddEmployee = new JButton("Add >>");
+        btnAddEmployee.addActionListener(
+            e -> {lstSelectedEmps.setListData(lstEmployees.getSelectedValuesList().toArray(new String[0]));}
+        );
+        
         btnAddProduct = new JButton("Add >>");
+        btnAddProduct.addActionListener(
+            e -> {lstSelectedProds.setListData(lstProducts.getSelectedValuesList().toArray(new String[0]));}
+        );
         
         JPanel btnPaneMain = new JPanel();
         btnPaneMain.setLayout(new GridBagLayout());
@@ -60,24 +86,7 @@ public class InvoicePanel extends JPanel
         
         // Text felds
         txtTotalCost = new JTextField(15);
-        
-        // Multiple selection lists
-        
-        lstEmployees = new JList(employees);
-        lstSelectedEmps = new JList();
-        lstProducts = new JList(products);
-        lstSelectedProds = new JList();
-        
-        lstEmployees.setVisibleRowCount(5);
-        lstSelectedEmps.setVisibleRowCount(5);
-        lstEmployees.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        lstSelectedEmps.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
-        lstProducts.setVisibleRowCount(5);
-        lstSelectedProds.setVisibleRowCount(5);
-        lstProducts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        lstSelectedProds.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
+
         // Border
         setBorder(BorderFactory.createTitledBorder("Invoice Information"));
         
