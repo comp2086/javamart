@@ -1,5 +1,5 @@
-CREATE DATABASE javaAssignment;
-USE javaAssignment;
+CREATE DATABASE javamart;
+USE javamart;
 
 CREATE TABLE employee
 (
@@ -39,7 +39,7 @@ CREATE TABLE invoice
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     cost DECIMAL(10,2),
-	created DATE
+	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE invoiceJunction
