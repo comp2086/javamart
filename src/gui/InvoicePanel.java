@@ -98,7 +98,6 @@ public class InvoicePanel extends JPanel
         add(new JScrollPane(lstSelectedProds));
         add(lblTotalCost);
         add(txtTotalCost);
-        add(btnPaneMain);
-        
+        add(btnPaneMain);       
     }
 }
