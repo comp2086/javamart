@@ -46,8 +46,8 @@ public abstract class Employee
     
     /*******Employee toString*********/
     
-    @Override
-    public String toString()
+    // Get all info
+    public String toStringFull()
     {
         String employeeDescription = "";
         employeeDescription += "\nName:\t" + getFullName();
@@ -61,8 +61,9 @@ public abstract class Employee
         return employeeDescription;
     }
     
-    //get just the name
-    public String nameString()
+    // Get just the name
+    @Override
+    public String toString()
     {
         return getFullName();
     }
