@@ -308,6 +308,7 @@ public class DBController {
             QRY = "INSERT INTO invoices(cost) VALUES(" + invoice.getTotalCost() + ")";
             
             // Insert employeeId, productId and invoiceId into invoice junction table
+            /*
             QRY = "INSERT INTO invoicesJunction(invoiceId, employeeId) VALUES(";     
             for(int i = 0; i < invoice.getEmployees().size(); i++) {
                 
@@ -332,6 +333,7 @@ public class DBController {
             }
             QRY += " WHERE invoiceId = " + invoice.getId();
             stat.executeUpdate(QRY); 
+            */
         }
         catch(SQLException error) {
             error.printStackTrace();
