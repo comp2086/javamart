@@ -23,7 +23,7 @@ public class CommissionSalesEmployee extends Employee
     
     public CommissionSalesEmployee(String firstName, String lastName, String position,
                                    String department, String address, String phone,
-                                   String sin, String commissionRate)
+                                   String sin, double commissionRate)
     {
         super(firstName, lastName, position,department, address, phone, sin);
         
@@ -40,7 +40,8 @@ public class CommissionSalesEmployee extends Employee
     @Override
     public double calculateEarnings()
     {
-        return (getSales() * getCommissionRate());
+//        return (getSales() * getCommissionRate());
+        return 0;
     }
     
     
@@ -60,17 +61,11 @@ public class CommissionSalesEmployee extends Employee
      * a string until parsed.
      * @param commissionRate - the commission rate as a string
      */
-    public void setCommissionRate(String commissionRate)
+    public void setCommissionRate(double commissionRate)
     {
         try
         {
-            this.commissionRate = Double.parseDouble(commissionRate);
-        
-        }catch(NumberFormatException e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
-            
+            this.commissionRate = commissionRate;        
         }catch(Exception e)
         {
             System.out.println(e.getMessage());
@@ -83,7 +78,7 @@ public class CommissionSalesEmployee extends Employee
      * a string until parsed.
      * @param sales - the number of sales and employee has
      */
-    public void setSales(String sales)
+   /* public void setSales(String sales)
     {
         try
         {
@@ -99,7 +94,7 @@ public class CommissionSalesEmployee extends Employee
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         }
-    }
+    }*/
     
     /**********Accessor Methods***********/
     
@@ -108,8 +103,8 @@ public class CommissionSalesEmployee extends Employee
         return this.commissionRate;
     }
     
-    public int getSales()
+    /*public int getSales()
     {
         return this.sales;
-    }
+    }*/
 }
