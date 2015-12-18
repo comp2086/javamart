@@ -20,6 +20,7 @@ public class DBController {
     private static ArrayList<Product> products = new ArrayList<>();
     private static ArrayList<Manufacturer> manufacturers = new ArrayList<>();
     private static ArrayList<Invoice> invoices = new ArrayList<>();
+    private static ArrayList<Integer> junctions = new ArrayList<>();
     private static final String DB_URL = "jdbc:mysql://localhost/javamart";
     private static final String userName = "root";
     private static final String password = "chaoss";
@@ -84,13 +85,39 @@ public class DBController {
         populateEmployees();
         populateProducts();
         populateManufacturers();
+        populateJunctions();
         populateIds();
         closeConnection();
     }//populateLocal
     
     /***************************************
      *           DB READ Methods
-     **************************************/    
+     **************************************/   
+    
+    public static void populateJunctions()
+    {
+        int counter = 0;
+        
+        try
+        {
+            stat = conn.createStatement();
+            QRY = "SELECT * FROM junction_table";
+            rs = stat.executeQuery(QRY);
+            while(rs.next())
+            {
+                junctions.add(rs.getInt(counter));
+                
+                counter++;
+            }
+            
+        }catch(SQLException error) {
+            error.printStackTrace();
+        }
+        catch(Exception error) {
+            error.printStackTrace();
+        } 
+    }
+    
     /**
      * This method is responsible for grabbing the latest id values
      * from our 3 tables
