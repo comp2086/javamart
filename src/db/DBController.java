@@ -20,11 +20,36 @@ public class DBController {
     private static ArrayList<Invoice> invoices = new ArrayList<>();
     private static String DB_URL = "jdbc:mysql://localhost/javamart";
     private static String userName = "root";
-    private static String password = "root";
+    private static String password = "chaoss";
     private static String QRY = null;
     private static Connection conn = null;
     private static Statement stat = null;
     private static ResultSet rs = null;
+    
+    
+    public static void main (String[] args) {
+        
+        try {
+            openConnection();
+            
+            populateEmployees();
+            populateProducts();
+            
+            System.out.println(employees.get(0).getFullName());
+            System.out.println(products.get(0).getName());
+        }
+        catch(Exception e) {
+            System.out.println("Exception : ");
+            e.printStackTrace();
+        }
+        finally {
+            closeConnection();
+        }
+        
+        
+        closeConnection();
+        
+    }//main
     
     /**
      * DB Connection
@@ -72,14 +97,14 @@ public class DBController {
             rs = stat.executeQuery(QRY);
             while (rs.next()) {
                 employees.add(new CommissionSalesEmployee(                        
-                        rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getString(8)
+                        rs.getString(8),
+                        rs.getDouble(9)
                 ));
             }           
         }
@@ -103,13 +128,13 @@ public class DBController {
             rs = stat.executeQuery(QRY);
             while (rs.next()) {
                 products.add(new Product(
-                        rs.getString(1),
-                        rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
-                        new Manufacturer(rs.getString(7))
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getBoolean(8),
+                        new Manufacturer("Manu")
                 ));
             }            
         }

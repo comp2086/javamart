@@ -1,7 +1,13 @@
 CREATE DATABASE javamart;
 USE javamart;
 
-CREATE TABLE employee
+DROP TABLE IF EXISTS invoicesJunction;
+DROP TABLE IF EXISTS invoices;
+DROP TABLE IF EXISTS manufacturers;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS employees;
+
+CREATE TABLE employees
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	firstName VARCHAR(25),
@@ -11,18 +17,17 @@ CREATE TABLE employee
 	address VARCHAR(100),
 	phone VARCHAR(12),
 	sin CHAR(9),
-    commissionRate DECIMAL(5,5),
-    sales INT
+    commissionRate DECIMAL(5,5)
 );
 
 
-CREATE TABLE manufacturer
+CREATE TABLE manufacturers
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50)
 );
 
-CREATE TABLE product
+CREATE TABLE products
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	manId INT NOT NULL,
@@ -32,24 +37,24 @@ CREATE TABLE product
 	cost DECIMAL(5, 2),
 	price DECIMAL(5, 2),
 	availability BOOLEAN,
-	FOREIGN KEY(manId) REFERENCES manufacturer(id)
+	FOREIGN KEY(manId) REFERENCES manufacturers(id)
 );
 
-CREATE TABLE invoice
+CREATE TABLE invoices
 (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     cost DECIMAL(10,2),
 	created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE invoiceJunction
+CREATE TABLE invoicesJunction
 (
 	employeeId INT NOT NULL,
     productId INT NOT NULL,
     invoiceId INT NOT NULL,
-	FOREIGN KEY(employeeId) REFERENCES employee(id),
-	FOREIGN KEY(productId) REFERENCES product(id),
-	FOREIGN KEY(invoiceId) REFERENCES invoice(id)
+	FOREIGN KEY(employeeId) REFERENCES employees(id),
+	FOREIGN KEY(productId) REFERENCES products(id),
+	FOREIGN KEY(invoiceId) REFERENCES invoices(id)
 );
 
 -- Possbile changes if we decide not to hardcode values
