@@ -22,7 +22,7 @@ public class DBController {
     private static ArrayList<Invoice> invoices = new ArrayList<>();
     private static final String DB_URL = "jdbc:mysql://localhost/javamart";
     private static final String userName = "root";
-    private static final String password = "chaoss";
+    private static final String password = "root";
     private static String QRY = null;
     private static Connection conn = null;
     private static Statement stat = null;
@@ -198,7 +198,7 @@ public class DBController {
             stat = conn.createStatement();
             QRY = "SELECT "
                     + "name "
-                    + "FROM MANUFACTURERS";
+                    + "FROM manufacturers";
             rs = stat.executeQuery(QRY);
             while (rs.next()) {
                 manufacturers.add(new Manufacturer(
@@ -211,11 +211,7 @@ public class DBController {
         }
         catch(Exception error) {
             error.printStackTrace();
-        }
-        finally {
-            closeConnection();
-        }
-        
+        }  
     }//populateManufacturers
     
     /***************************************

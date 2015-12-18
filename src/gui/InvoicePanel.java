@@ -83,16 +83,26 @@ public class InvoicePanel extends JPanel
         btnCalc = new JButton("Calculate Cost");
         btnCalc.addActionListener(
             event -> {
-                double totalCost = 0;
-                
-                // Get the price of all products included in the invoice
-                for (int i = 0; i < modelSelectedProds.getSize(); i ++) {
-                    totalCost += modelSelectedProds.getElementAt(i).getPrice();
-                }    
+                if(modelSelectedEmps.getSize() == 0) {
+                    JOptionPane.showMessageDialog(null, "At least one employee is required to create an invoice");
+                } else if(modelSelectedProds.getSize() == 0) {
+                    JOptionPane.showMessageDialog(null, "At least one product is required to create an invoice");
+                } else {
+                    double totalCost = 0;
 
-                txtTotalCost.setText(Double.toString(totalCost));
+                    // Get the price of all products included in the invoice
+                    for (int i = 0; i < modelSelectedProds.getSize(); i ++) {
+                        totalCost += modelSelectedProds.getElementAt(i).getCost();
+                    }    
+
+                    txtTotalCost.setText(Double.toString(totalCost));
+                }
             }
         );
+        
+        // Create invoice and store it in the DB
+        btnCreate = new JButton("Create Invoice");
+       
         
         // Clear the form
         btnClear = new JButton("Clear All");
@@ -104,9 +114,6 @@ public class InvoicePanel extends JPanel
                 modelSelectedProds.clear();
             }
         );
-        
-        // Create invoice and store it in the DB
-        btnCreate = new JButton("Create Invoice");
         
         // Add employee to a new invoice
         btnAddEmployee = new JButton("Add >>");
@@ -137,7 +144,7 @@ public class InvoicePanel extends JPanel
         );
         
         JPanel btnPaneMain = new JPanel();
-        btnPaneMain.setLayout(new BorderLayout());
+        btnPaneMain.setLayout(new GridBagLayout());
         
         btnPaneMain.add(btnCalc);
         btnPaneMain.add(btnClear);

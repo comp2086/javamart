@@ -25,5 +25,9 @@ public class Service {
     
     public static int getManuId() {
         return ++manuId;
-    }    
+    }
+    
+    public static int getInvId() {
+        return ++invId;
+    }
 }//class
