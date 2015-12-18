@@ -37,8 +37,8 @@ public class Manufacturer
     {
        String manufacturerDescription = "";
        
-       manufacturerDescription += "\nId:\t" + getId();
-       manufacturerDescription += "\nName:\t" + getName();
+       manufacturerDescription += "\nManufacturer Id:\t" + getId();
+       manufacturerDescription += "\nManufacturer Name:\t" + getName();
         
        return manufacturerDescription;
     }
