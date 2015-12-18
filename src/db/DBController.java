@@ -30,7 +30,7 @@ public class DBController {
     /**
      * DB Connection
      */
-    public static void openConnection() {
+    private static void openConnection() {
         
         try {            
             conn = DriverManager.getConnection(DB_URL, userName, password);            
@@ -60,15 +60,15 @@ public class DBController {
     }
     
     // Data getters
-    public ArrayList<Employee> getEmployees() {
+    public static ArrayList<Employee> getEmployees() {
         return employees;
     }
     
-    public ArrayList<Product> getProducts() {
+    public static ArrayList<Product> getProducts() {
         return products;
     }
     
-    public ArrayList<Invoice> getInvoice() {
+    public static ArrayList<Invoice> getInvoice() {
         return invoices;
     }
     
