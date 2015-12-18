@@ -112,7 +112,7 @@ public class CommissionSalesEmployeePanel extends JPanel
         add(lblCommissionRate);
         add(txtCommissionRate);
         add(buttonPane);
-    }
+    }//end constructor
 
     /**
      * Confirms the submission
@@ -126,6 +126,10 @@ public class CommissionSalesEmployeePanel extends JPanel
                                     "Confirm Submission", JOptionPane.OK_CANCEL_OPTION);
     }
     
+    /**
+     * This private internal class implements ActionListener and controls events 
+     * relating to the Submit Button click.
+     */
     private class SubmitHandler implements ActionListener {
 
         //handle the button event
@@ -176,8 +180,12 @@ public class CommissionSalesEmployeePanel extends JPanel
                 }
             }//end check valid
         }
-    }
+    }//end private Submit Handler class
 
+    /**
+     * This public internal class inherits from InputVerifier with modifications
+     * specifically designed for the Product Panel.
+     */
     public class MyInputVerifier extends InputVerifier {
 
         @Override
@@ -192,24 +200,67 @@ public class CommissionSalesEmployeePanel extends JPanel
                     
                     double tempCommissionRate = Double.parseDouble(text);
                     
-                    if(!(tempCommissionRate > 0))
+                    if(tempCommissionRate < 0 || tempCommissionRate > 1)
                     {
-                        JOptionPane.showMessageDialog(null,"Commission Rate must be greater than zero");
+                        JOptionPane.showMessageDialog(null,"Commission rate must be a percent (enter value between 0 and 1).");
                         return false;
                     }
                     
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null,
-                            "This is not a valid cost. please try again");
+                            "This is not a valid commission rate. Please try again.");
                     return false;
                 }
                 return true;
-            } else {
+            }//end commission rate validator
+            else if (name == "First Name" || name == "Last Name") {
+                
+                if (text.length() > 25) {
+                    JOptionPane.showMessageDialog(null, 
+                            "Names must not exceed 25 characters.");
+                    return false;
+                }
+                return true;
+                
+            }//end name validator
+            else if (name == "Address") {
+                
+                if (text.length() > 100) {
+                    JOptionPane.showMessageDialog(null, 
+                            "Address must not exceed 100 characters.");
+                    return false;
+                }
+                return true;
+            }//end address validator
+            else if (name == "Sin") {
+                
+                if (!(text.length() == 9)) {
+                    JOptionPane.showMessageDialog(null,
+                            "SIN must be 9 characters.");
+                    return false;
+                }
+                return true;
+            }//end SIN validator
+            else if (name == "Phone") {
+                
+                if (text.length() > 12) {
+                    JOptionPane.showConfirmDialog(null, 
+                            "Phone number must not exceed 12 digits.");
+                    return false;
+                }
+                return true;
+            }//end phone validator
+            else {
                 return true;
             }
-        }
-    }
+            
+        }//verify method
+    }//end verifier class
 
+    /**
+     * This private internal class implements ActionListener to control events
+     * relating to the Clear Button click.
+     */
     private class ClearHandler implements ActionListener {
 
         @Override
@@ -239,6 +290,6 @@ public class CommissionSalesEmployeePanel extends JPanel
             txtPhone.setText("");
             txtCommissionRate.setText("");
             
-        }
-    }
-}
+        }//end action handler
+    }//end clear handler
+}//end class
