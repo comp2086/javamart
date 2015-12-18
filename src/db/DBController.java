@@ -2,6 +2,7 @@ package db;
 import java.sql.*;
 import java.util.ArrayList;
 import hr.CommissionEmployee.CommissionSalesEmployee;
+import hr.Employee;
 import inventory.Manufacturer;
 import inventory.Product;
 import invoice.Invoice;
@@ -15,12 +16,12 @@ public class DBController {
     /*
      * Module Level Variables / Objects / Arrays
      */
-    private static ArrayList<CommissionSalesEmployee> employees = new ArrayList<>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
     private static ArrayList<Product> products = new ArrayList<>();
     private static ArrayList<Invoice> invoices = new ArrayList<>();
-    private static String DB_URL = "jdbc:mysql://localhost/javamart";
+    private static final String DB_URL = "jdbc:mysql://localhost/javamart";
     private static String userName = "root";
-    private static String password = "chaoss";
+    private static String password = "root";
     private static String QRY = null;
     private static Connection conn = null;
     private static Statement stat = null;
@@ -56,6 +57,19 @@ public class DBController {
         catch(Exception error) {
             error.printStackTrace();
         }
+    }
+    
+    // Data getters
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+    
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+    
+    public ArrayList<Invoice> getInvoice() {
+        return invoices;
     }
     
     
