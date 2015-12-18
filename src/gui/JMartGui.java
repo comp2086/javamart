@@ -19,10 +19,6 @@ public class JMartGui extends JFrame
         super("JMart");
         setLayout(new BorderLayout());
         
-        // Get all data from the database
-        DBController.populateEmployees();
-        DBController.populateProducts();
-        
         //create the tab container
         JTabbedPane tabPane = new JTabbedPane();
         
@@ -101,13 +97,15 @@ public class JMartGui extends JFrame
     //main method
     public static void main(String[] args)
     {
+        //Read all data from DB and populate local 
+        DBController.populateLocal();
+        
         JMartGui gui = new JMartGui();
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.pack();
         gui.setVisible(true);
         
-        //Read all data from DB and populate local 
-        DBController.populateLocal();
+        
     }
 }
 
