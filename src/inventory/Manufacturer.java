@@ -43,6 +43,12 @@ public class Manufacturer
        return manufacturerDescription;
     }
     
+    //returns the name of the manufacturer
+    public String nameString()
+    {
+        return getName();
+    }
+    
     /****Mutator Methods***********/
     
     public void setName(String name)
