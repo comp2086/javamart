@@ -5,11 +5,11 @@ set SQL_SAFE_UPDATES = 0;
 -- Employees
 insert into employees(firstName, lastName, position, department, address, phone, sin, commissionRate)
 values
-	('Alex', 'Andriishyn', 'Software Developer', 'IT', '140 Penetang St.', '123456', 'abcdefghg', 0.2),
-	('Anthony', 'Scinocco', 'Software Developer', 'IT', 'Some street', '123456', 'abcdefghg', 0.2),
-	('Dan', 'Masci', 'Software Developer', 'IT', 'Some street-2', '123456', 'abcdefghg', 0.2),
-	('David', 'Yu', 'Software Developer', 'IT', 'Some street-3', '123456', 'abcdefghg', 0.2),
-	('Michael', 'Joyce', 'Software Developer', 'IT', 'Some street-4', '123456', 'abcdefghg', 0.2);
+	('Alex', 'Andriishyn', 'Software Developer', 'IT', '140 Penetang St.', '123456789', 'abcdefghg', 0.2),
+	('Anthony', 'Scinocco', 'Software Developer', 'IT', 'Some street', '123456789', 'abcdefghg', 0.2),
+	('Dan', 'Masci', 'Software Developer', 'IT', 'Some street-2', '123456789', 'abcdefghg', 0.2),
+	('David', 'Yu', 'Software Developer', 'IT', 'Some street-3', '123456789', 'abcdefghg', 0.2),
+	('Michael', 'Joyce', 'Software Developer', 'IT', 'Some street-4', '123456789', 'abcdefghg', 0.2);
 
 -- Manufacturers
 insert into manufacturers(name) 
