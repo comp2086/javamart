@@ -6,6 +6,11 @@
  */
 package gui;
 
+import db.*;
+import hr.CommissionEmployee.CommissionSalesEmployee;
+import hr.Employee;
+import inventory.Manufacturer;
+import inventory.Product;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -145,6 +150,7 @@ public class ProductPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             MyInputVerifier verifier = new MyInputVerifier();
+            Manufacturer tempManu = new Manufacturer();
 
             //set up a counter to count the number of returned true
             int counter = 0;
@@ -154,7 +160,7 @@ public class ProductPanel extends JPanel {
             jList.add(txtDescription);
             jList.add(txtSerialNumber);
             jList.add(txtCost);
-            jList.add(txtPrice);
+            jList.add(txtPrice);                
 
             //verify each single field
             for (JTextField j : jList) {
@@ -174,9 +180,43 @@ public class ProductPanel extends JPanel {
                         JOptionPane.YES_NO_OPTION);
                 
                 if (reply == JOptionPane.YES_OPTION){
-                    System.out.println("Data has been inserted correctly.");
-                }
-                
+                    String manuName = cmbManufacturer.getSelectedItem().toString();                                     
+                    boolean avail;
+                    //First, create our Manufacturer
+                    if(manuName == "Add New") {
+                        manuName = txtManuName.getText();
+                        if(manuName != "") {
+                            tempManu = new Manufacturer(manuName);
+                        }
+                        else {
+                            //joption pane for blank manufacturer textfield
+                            JOptionPane.showMessageDialog(null, "Manufacturer Name cannot be empty");
+                        }
+                    }
+                    else {
+                        tempManu = new Manufacturer(manuName);
+                    }
+                    if (cmbAvailability.getSelectedItem().toString() == "true")
+                        avail = true;
+                    else
+                        avail = false;
+                    
+                    //Second, create our Product
+                    Product tempProd = new Product(
+                            Service.getProdId(),
+                            txtName.getText(),
+                            txtDescription.getText(),
+                            txtSerialNumber.getText(),
+                            txtCost.getText(),
+                            txtPrice.getText(),
+                            avail,
+                            tempManu
+                        );
+                    //Third, add the employee to local memory
+                    DBController.getProducts().add(tempProd);
+                    //Fourth, add the employee to DB
+                    DBController.createProduct(tempProd);
+                }                
             }
                  //System.out.println(counter);
             //System.out.println(jList.size());
