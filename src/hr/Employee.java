@@ -32,7 +32,7 @@ public abstract class Employee
      * @param phone
      * @param sin 
      */
-    public Employee(String firstName, String lastName, String position,
+    public Employee(int id, String firstName, String lastName, String position,
                    String department, String address, String phone, String sin)
     {
        this.firstName   = firstName;
