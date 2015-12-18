@@ -4,6 +4,7 @@
  * Handles our gui
  */
 package gui;
+import db.DBController;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -94,6 +95,9 @@ public class JMartGui extends JFrame
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.pack();
         gui.setVisible(true);
+        
+        //Read all data from DB and populate local 
+        DBController.populateLocal();
     }
 }
 
