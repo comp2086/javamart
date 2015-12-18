@@ -24,6 +24,7 @@ public abstract class Employee
     /**
      * Fully detailed constructor
      * id is not included as it is populated by the MySQL
+     * @param id
      * @param firstName
      * @param lastName
      * @param position
@@ -35,6 +36,7 @@ public abstract class Employee
     public Employee(int id, String firstName, String lastName, String position,
                    String department, String address, String phone, String sin)
     {
+       this.id          = id;
        this.firstName   = firstName;
        this.lastName    = lastName;
        this.position    = position;

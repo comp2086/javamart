@@ -5,6 +5,10 @@
  */
 package gui;
 
+import db.*;
+import hr.CommissionEmployee.CommissionSalesEmployee;
+import hr.Employee;
+import java.sql.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -173,7 +177,22 @@ public class CommissionSalesEmployeePanel extends JPanel
                     //submit only when all the empty fields are filled
                     if (counter == 6) //You replace the code below with a call to submit the data to the database
                     {
-                        System.out.println(".");
+                        //First, create our Employee based on User Inputs
+                        Employee tempEmp = new CommissionSalesEmployee(
+                                Service.getEmpId(),
+                                txtFirstName.getText(),
+                                txtLastName.getText(),
+                                cmbPosition.getSelectedItem().toString(),
+                                cmbDepartment.getSelectedItem().toString(),
+                                txtAddress.getText(),
+                                txtPhone.getText(),
+                                txtSin.getText(),
+                                Double.parseDouble(txtCommissionRate.getText())
+                            );
+                        //Second, add the employee to local memory
+                        DBController.getEmployees().add(tempEmp);
+                        //Third, add the employee to DB
+                        DBController.createEmployee(tempEmp);
                     }
                     //System.out.println(counter);
                     //System.out.println(jList.size());

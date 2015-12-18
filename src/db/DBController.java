@@ -31,7 +31,7 @@ public class DBController {
     /**
      * DB Connection
      */
-    public static void openConnection() {        
+    private static void openConnection() {        
         try {            
             if (conn == null)
                 conn = DriverManager.getConnection(DB_URL, userName, password);            
@@ -47,7 +47,7 @@ public class DBController {
     /**
      * DB Disconnect
      */
-    public static void closeConnection() {
+    private static void closeConnection() {
         try {
             if (conn != null)
                 conn.close();
@@ -76,6 +76,15 @@ public class DBController {
     public static ArrayList<Invoice> getInvoice() {
         return invoices;
     }
+    
+    public static void populateLocal() {
+        openConnection();
+        populateEmployees();
+        populateProducts();
+        populateManufacturers();
+        populateIds();
+        closeConnection();
+    }//populateLocal
     
     /***************************************
      *           DB READ Methods
