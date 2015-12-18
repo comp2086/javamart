@@ -1,3 +1,4 @@
+CREATE DATABASE javamart;
 use javamart;
 set SQL_SAFE_UPDATES = 0;
 
