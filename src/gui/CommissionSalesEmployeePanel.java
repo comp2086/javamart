@@ -116,10 +116,14 @@ public class CommissionSalesEmployeePanel extends JPanel
 
     /**
      * Confirms the submission
+     * @return - JOption pane will return 0 if the user selects ok
+     * and it will return 2 if the user selects cancel. If the user
+     * presses the x(exit) button it will return -1
      */
-    public static void confirmSubmission()
+    public static int confirmSubmission()
     {
-       JOptionPane.showMessageDialog(null, "Are you sure you want to submit?");
+       return JOptionPane.showConfirmDialog(null, "Are you sure you want to submit?",
+                                    "Confirm Submission", JOptionPane.OK_CANCEL_OPTION);
     }
     
     private class SubmitHandler implements ActionListener {
@@ -158,16 +162,19 @@ public class CommissionSalesEmployeePanel extends JPanel
             if(checkValid == true)
             {
                 //creates popup confirmation 
-                confirmSubmission();
-            }
-            
-            //submit only when all the empty fields are filled
-            if (counter == 6) //You replace the code below with a call to submit the data to the database
-            {
-                System.out.println(".");
-            }
-            //System.out.println(counter);
-            //System.out.println(jList.size());
+                int response = confirmSubmission();
+                //if the user selects okay
+                if(response == 0)
+                {
+                    //submit only when all the empty fields are filled
+                    if (counter == 6) //You replace the code below with a call to submit the data to the database
+                    {
+                        System.out.println(".");
+                    }
+                    //System.out.println(counter);
+                    //System.out.println(jList.size());
+                }
+            }//end check valid
         }
     }
 
