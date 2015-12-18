@@ -41,6 +41,12 @@ public class Invoice {
         }
     }
     
+    //return id as a string
+    public String nameString()
+    {
+        return "" + getId();
+    }
+    
     // </editor-fold>
     
     // <editor-fold desc="Methods">

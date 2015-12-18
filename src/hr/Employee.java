@@ -61,6 +61,12 @@ public abstract class Employee
         return employeeDescription;
     }
     
+    //get just the name
+    public String nameString()
+    {
+        return getFullName();
+    }
+    
     /*******Abstract Methods**********/
     
     /**

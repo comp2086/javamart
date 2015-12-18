@@ -10,7 +10,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class CommissionSalesEmployeePanel extends JPanel {
+public class CommissionSalesEmployeePanel extends JPanel 
+{
 
     //components
     //labels
@@ -113,11 +114,28 @@ public class CommissionSalesEmployeePanel extends JPanel {
         add(buttonPane);
     }
 
+    /**
+     * Confirms the submission
+     * @return - JOption pane will return 0 if the user selects ok
+     * and it will return 2 if the user selects cancel. If the user
+     * presses the x(exit) button it will return -1
+     */
+    public static int confirmSubmission()
+    {
+       return JOptionPane.showConfirmDialog(null, "Are you sure you want to submit?",
+                                    "Confirm Submission", JOptionPane.OK_CANCEL_OPTION);
+    }
+    
     private class SubmitHandler implements ActionListener {
 
         //handle the button event
         @Override
         public void actionPerformed(ActionEvent e) {
+            
+            //used to check whether or not we should
+            //display the confirm submission popup
+            boolean checkValid = true;
+            
             MyInputVerifier verifier = new MyInputVerifier();
 
             //set up a counter to count the number of returned true
@@ -134,18 +152,29 @@ public class CommissionSalesEmployeePanel extends JPanel {
             //verify each single field
             for (JTextField j : jList) {
                 if (verifier.verify(j) == false) {
+                    checkValid = false;
                     break;
                 } else if (verifier.verify(j) == true) {
                     counter++;
                 }
             }
-            //submit only when all the empty fields are filled
-            if (counter == 6) //You replace the code below with a call to submit the data to the database
+            
+            if(checkValid == true)
             {
-                System.out.println("You won! Motherfucker!!");
-            }
-            //System.out.println(counter);
-            //System.out.println(jList.size());
+                //creates popup confirmation 
+                int response = confirmSubmission();
+                //if the user selects okay
+                if(response == 0)
+                {
+                    //submit only when all the empty fields are filled
+                    if (counter == 6) //You replace the code below with a call to submit the data to the database
+                    {
+                        System.out.println(".");
+                    }
+                    //System.out.println(counter);
+                    //System.out.println(jList.size());
+                }
+            }//end check valid
         }
     }
 
@@ -160,7 +189,15 @@ public class CommissionSalesEmployeePanel extends JPanel {
                 return false;
             } else if (name == "Commission Rate") {
                 try {
-                    Double.parseDouble(text);
+                    
+                    double tempCommissionRate = Double.parseDouble(text);
+                    
+                    if(!(tempCommissionRate > 0))
+                    {
+                        JOptionPane.showMessageDialog(null,"Commission Rate must be greater than zero");
+                        return false;
+                    }
+                    
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null,
                             "This is not a valid cost. please try again");

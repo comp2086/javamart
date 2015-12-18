@@ -74,6 +74,12 @@ public class Product
         return productDescription;
     }
     
+    //gets just the name
+    public String nameString()
+    {
+        return getName();
+    }
+    
     public String getManufacturerToString()
     {
         return this.manu.toString();
