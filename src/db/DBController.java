@@ -305,11 +305,33 @@ public class DBController {
             stat = conn.createStatement();
             
             // Insert into invoice table
-            QRY = "INSERT INTO INVOICE(COST) VALUES(" + invoice.getTotalCost() + ")";
+            QRY = "INSERT INTO invoices(cost) VALUES(" + invoice.getTotalCost() + ")";
+            
+            // Insert employeeId, productId and invoiceId into invoice junction table
+            QRY = "INSERT INTO invoicesJunction(invoiceId, employeeId) VALUES(";     
+            for(int i = 0; i < invoice.getEmployees().size(); i++) {
+                
+                QRY += invoice.getId() + ", ";
+                QRY += invoice.getEmployees().get(i).getId() + ")";
+                
+                if(i < invoice.getEmployees().size() - 1) {
+                    QRY += ",(";
+                }
+            }
             stat.executeUpdate(QRY);
             
-            // Insert employeeId and productId into invoice junction table
-            
+            QRY = "INSERT INTO invoicesJunction(productId) VALUES("; 
+            for(int i = 0; i < invoice.getProducts().size(); i++) {
+                
+                QRY += invoice.getProducts().get(i).getId() + ")";
+                
+                if(i < invoice.getProducts().size() - 1) {
+                    QRY += ",(";
+                }
+                
+            }
+            QRY += " WHERE invoiceId = " + invoice.getId();
+            stat.executeUpdate(QRY); 
         }
         catch(SQLException error) {
             error.printStackTrace();

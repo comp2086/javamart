@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import hr.Employee;
 import inventory.Product;
+import invoice.Invoice;
 
 
 /**
@@ -102,6 +103,13 @@ public class InvoicePanel extends JPanel
         
         // Create invoice and store it in the DB
         btnCreate = new JButton("Create Invoice");
+        btnCreate.addActionListener(
+                e -> {
+                    // Have to find a way to convert DefaultListModel into an arraylist
+                    // DBController.createInvoice(new Invoice(modelSelectedEmps.toArray(), modelSelectedProds.toArray()));
+                    ;
+                }
+        );
        
         
         // Clear the form
