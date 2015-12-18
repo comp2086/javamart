@@ -2,6 +2,7 @@ package db;
 import java.sql.*;
 import java.util.ArrayList;
 import hr.CommissionEmployee.CommissionSalesEmployee;
+import hr.Employee;
 import inventory.Manufacturer;
 import inventory.Product;
 import invoice.Invoice;
@@ -15,12 +16,12 @@ public class DBController {
     /*
      * Module Level Variables / Objects / Arrays
      */
-    private static ArrayList<CommissionSalesEmployee> employees = new ArrayList<>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
     private static ArrayList<Product> products = new ArrayList<>();
     private static ArrayList<Invoice> invoices = new ArrayList<>();
-    private static String DB_URL = "jdbc:mysql://localhost/javamart";
+    private static final String DB_URL = "jdbc:mysql://localhost/javamart";
     private static String userName = "root";
-    private static String password = "chaoss";
+    private static String password = "root";
     private static String QRY = null;
     private static Connection conn = null;
     private static Statement stat = null;
@@ -29,7 +30,7 @@ public class DBController {
     /**
      * DB Connection
      */
-    public static void openConnection() {
+    private static void openConnection() {
         
         try {            
             conn = DriverManager.getConnection(DB_URL, userName, password);            
@@ -56,6 +57,19 @@ public class DBController {
         catch(Exception error) {
             error.printStackTrace();
         }
+    }
+    
+    // Data getters
+    public static ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+    
+    public static ArrayList<Product> getProducts() {
+        return products;
+    }
+    
+    public static ArrayList<Invoice> getInvoice() {
+        return invoices;
     }
     
     
@@ -147,17 +161,18 @@ public class DBController {
         }
     }
     
-    public static void populateInvoices() {
+    public static void createInvoice(Invoice invoice) {
         
         try {
             openConnection();
             stat = conn.createStatement();
-            QRY = "SELECT * FROM Invoices";
-            rs = stat.executeQuery(QRY);
             
-            while(rs.next()) {
-                
-            }
+            // Insert into invoice table
+            QRY = "INSERT INTO INVOICE(COST) VALUES(" + invoice.getTotalCost() + ")";
+            stat.executeUpdate(QRY);
+            
+            // Insert employeeId and productId into invoice junction table
+            
         }
         catch(SQLException error) {
             error.printStackTrace();

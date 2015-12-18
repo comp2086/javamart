@@ -1,7 +1,15 @@
 package gui;
+import db.DBController;
 import java.awt.*;
 import javax.swing.*;
+import hr.Employee;
+import inventory.Product;
 
+
+/**
+ *
+ * @author Alex Andriishyn, 200296533
+ */
 public class InvoicePanel extends JPanel
 {
     //components
@@ -12,14 +20,15 @@ public class InvoicePanel extends JPanel
     private final JTextField txtTotalCost;
 
     //buttons
-    private final JButton btnCalc, btnClear, btnAddEmployee, btnAddProduct;
+    private final JButton btnCalc, btnClear, btnCreate, btnAddEmployee, btnAddProduct;
     
     //comboboxes
     private final JList<String> lstEmployees, lstProducts, lstSelectedEmps, lstSelectedProds;
     
-    //temp solution to fill out combo boxes
-    private static final String[] employees = {"Employee 1", "Employee 2", "Employee 3"},
-                                  products = {"Product 1", "Product 2"};
+    private DefaultListModel<Employee> modelEmps = new DefaultListModel();
+    private DefaultListModel<Product> modelProds = new DefaultListModel();
+    private DefaultListModel<Employee> modelSelectedEmps = new DefaultListModel();
+    private DefaultListModel<Product> modelSelectedProds = new DefaultListModel();
     
     public InvoicePanel()
     {
@@ -27,11 +36,23 @@ public class InvoicePanel extends JPanel
         setLayout(new GridLayout(3,3));
         GridBagConstraints gbc = new GridBagConstraints();
         
-        // Multiple selection lists
-        lstEmployees = new JList(employees);
-        lstSelectedEmps = new JList();
-        lstProducts = new JList(products);
+        // Get all data from the database
+        DBController.populateEmployees();
+        DBController.populateProducts();
+        
+        // Employee and product selection lists
+        for(int i = 0; i < DBController.getEmployees().size(); i++) {
+            modelEmps.add(i, DBController.getEmployees().get(i));
+        }
+        lstEmployees = new JList(modelEmps);
+                
+        for(int i = 0; i < DBController.getProducts().size(); i++) {
+            modelProds.add(i, DBController.getProducts().get(i));
+        }
+        lstProducts = new JList(modelProds);
+        
         lstSelectedProds = new JList();
+        lstSelectedEmps = new JList();
         
         lstEmployees.setVisibleRowCount(5);
         lstSelectedEmps.setVisibleRowCount(5);
@@ -43,13 +64,22 @@ public class InvoicePanel extends JPanel
         lstProducts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         lstSelectedProds.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
-        btnCalc = new JButton("Calculate");
+        btnCalc = new JButton("Calculate Cost");
         btnClear = new JButton("Clear All");
+        btnClear.addActionListener(
+            e -> { ; }
+        );
+        
+        btnCreate = new JButton("Create Invoice");
         
         btnAddEmployee = new JButton("Add >>");
-        btnAddEmployee.addActionListener(
-            e -> {lstSelectedEmps.setListData(lstEmployees.getSelectedValuesList().toArray(new String[0]));}
-        );
+        /*btnAddEmployee.addActionListener(
+                e -> {
+                for(int i = 0; i < employees.length; i++) {
+                    modelEmps.add(i, employees[i]);
+                }
+            }
+        );*/
         
         btnAddProduct = new JButton("Add >>");
         btnAddProduct.addActionListener(
@@ -57,13 +87,9 @@ public class InvoicePanel extends JPanel
         );
         
         JPanel btnPaneMain = new JPanel();
-        btnPaneMain.setLayout(new GridBagLayout());
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        btnPaneMain.add(btnCalc, gbc);
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        btnPaneMain.add(btnClear, gbc);
+        btnPaneMain.setLayout(new FlowLayout());
+        btnPaneMain.add(btnCalc);
+        btnPaneMain.add(btnClear);
         
         JPanel addEmpPane = new JPanel();
         addEmpPane.setLayout(new GridBagLayout());
