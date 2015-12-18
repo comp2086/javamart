@@ -18,11 +18,11 @@ public class ProductPanel extends JPanel {
     //declare labels
     private final JLabel lblName, lblDescription, lblSerialNumber,
             lblCost, lblPrice,
-            lblAvailability, lblManufacturer;
+            lblAvailability, lblManufacturer, lblManuName;
 
     //declare text fields
     private final JTextField txtName, txtDescription, txtSerialNumber,
-            txtCost, txtPrice;
+            txtCost, txtPrice, txtManuName;
 
     //declare buttons
     private final JButton submitButton, clearAllButton;
@@ -32,7 +32,7 @@ public class ProductPanel extends JPanel {
 
     //declare static arrays to populate comboboxes
     private static final String[] availability = {"true", "false"},
-            manufacturer = {"Berlington Manufacuring",
+            manufacturer = {"Add New","Berlington Manufacuring",
                 "ISO Ltd.",
                 "Steele Inc."};
 
@@ -67,6 +67,7 @@ public class ProductPanel extends JPanel {
         lblPrice = new JLabel("Price:");
         lblAvailability = new JLabel("Availability:");
         lblManufacturer = new JLabel("Manufacuterer:");
+        lblManuName = new JLabel("Manufacturer Name:");
 
         //initialize the text felds
         txtName = new JTextField(15);
@@ -74,6 +75,7 @@ public class ProductPanel extends JPanel {
         txtSerialNumber = new JTextField(25);
         txtCost = new JTextField(15);
         txtPrice = new JTextField(15);
+        txtManuName = new JTextField(15);
 
         //set the name for the form text fields
         txtName.setName("Name");
@@ -85,6 +87,8 @@ public class ProductPanel extends JPanel {
         //initialize combo boxes and populate with appropriate arrays
         cmbAvailability = new JComboBox<String>(availability);
         cmbManufacturer = new JComboBox<String>(manufacturer);
+        //attach item listener
+        cmbManufacturer.addItemListener(new ManufacturerHandler());
 
         //set the border
         setBorder(BorderFactory.createTitledBorder("Product Information"));
@@ -104,10 +108,33 @@ public class ProductPanel extends JPanel {
         add(cmbAvailability);
         add(lblManufacturer);
         add(cmbManufacturer);
+        add(lblManuName);
+        add(txtManuName);
         add(buttonPane);
         
     }//end constructor
 
+    //handles allowing input into the manufacturer name
+    //based on what is selected in the manufacturer combo box
+    private class ManufacturerHandler implements ItemListener
+    {
+        @Override
+        public void itemStateChanged(ItemEvent event) 
+        {
+            if(cmbManufacturer.getSelectedIndex() != 0)
+            {
+                txtManuName.setEditable(false);
+                txtManuName.setBackground(Color.GRAY);
+            }else
+            {
+                txtManuName.setEditable(true);
+                txtManuName.setBackground(Color.WHITE);
+            }
+        }   
+    }
+    
+    
+    
     /**
      * This private internal class implements ActionListener and controls events 
      * relating to the Submit Button click.

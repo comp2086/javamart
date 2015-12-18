@@ -50,13 +50,21 @@ public class Product
     }
     
     /*******Product and manufacturer toString****/
-    
+    /**
+     * 
+     * @return name of a product
+     */
+    @Override
+    public String toString()
+    {
+        return this.getName();
+    }
     
     /**
      * @return - string representation of a product 
      */
-    @Override
-    public String toString()
+    
+    public String toStringFull()
     {
         String productDescription = "";
         
@@ -72,12 +80,6 @@ public class Product
         productDescription += getManufacturerToString();
         
         return productDescription;
-    }
-    
-    //gets just the name
-    public String nameString()
-    {
-        return getName();
     }
     
     public String getManufacturerToString()

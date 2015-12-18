@@ -45,10 +45,23 @@ public class CommissionSalesEmployee extends Employee
     
     
     /**********CommissionSalesEmployee ToString ************/
+    /**
+     * 
+     * @return full String representation of an employee object
+     */
+    @Override 
+    public String toStringFull() 
+    {
+        return super.toStringFull() + " " + getCommissionRate();
+    }
+    /**
+     * 
+     * @return full name of an employee
+     */
     @Override
     public String toString()
     {
-        return super.toString() + "\nCommission Rate:\t" + getCommissionRate();
+        return super.toString();
     }
     
     
