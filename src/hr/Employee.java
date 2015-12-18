@@ -32,7 +32,7 @@ public abstract class Employee
      * @param phone
      * @param sin 
      */
-    public Employee(String firstName, String lastName, String position,
+    public Employee(int id, String firstName, String lastName, String position,
                    String department, String address, String phone, String sin)
     {
        this.firstName   = firstName;
@@ -59,6 +59,12 @@ public abstract class Employee
         employeeDescription += "\nSIN:\t" + getSin();
         
         return employeeDescription;
+    }
+    
+    //get just the name
+    public String nameString()
+    {
+        return getFullName();
     }
     
     /*******Abstract Methods**********/
