@@ -36,14 +36,14 @@ public abstract class Employee
     public Employee(int id, String firstName, String lastName, String position,
                    String department, String address, String phone, String sin)
     {
-       this.id          = id;
-       this.firstName   = firstName;
-       this.lastName    = lastName;
-       this.position    = position;
-       this.department  = department;
-       this.address     = address;
-       this.phone       = phone;
-       this.sin         = sin;
+       setId(id);
+       setFirstName(firstName);
+       setLastName(lastName);
+       setPosition(position);
+       setDepartment(department);
+       setAddress(address);
+       setPhone(phone);
+       setSin(sin);
     }
     
     /*******Employee toString*********/
