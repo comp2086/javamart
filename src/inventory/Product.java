@@ -26,7 +26,7 @@ public class Product
     
     /**
      * Fully detailed constructor.
-     * id and manId have been left out as they will be populated from the database
+     * @param id
      * @param name
      * @param description
      * @param serialNumber
@@ -36,7 +36,7 @@ public class Product
      * @manu
      */
     public Product(int id, String name, String description, String serialNumber,
-                  String cost, String price, boolean availablitiy, Manufacturer manu)
+                  String cost, String price, boolean availability, Manufacturer manu)
     {
         setId(id);
         setName(name);
