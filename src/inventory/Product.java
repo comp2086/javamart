@@ -68,12 +68,12 @@ public class Product
     {
         String productDescription = "";
         
-        productDescription += "\nName:\t" + getName();
-        productDescription += "\nID:\t" + getId();
-        productDescription += "\nSerial Number:\t" + getSerialNumber();
-        productDescription += "\nDescription:\t" + getDescription();
-        productDescription += "\nCost to make:\t$" + getCost();
-        productDescription += "\nPrice charged:\t$" + getPrice();
+        productDescription += "\nProduct Name:\t" + getName();
+        productDescription += "\nProduct ID:\t" + getId();
+        productDescription += "\nProduct Serial Number:\t" + getSerialNumber();
+        productDescription += "\nProduct Description:\t" + getDescription();
+        productDescription += "\nProduct Cost to make:\t$" + getCost();
+        productDescription += "\nProduct Price charged:\t$" + getPrice();
         productDescription += "\nProduct Available?:\t" + getAvailability();
         
         //add product manufacturer to the string representation
