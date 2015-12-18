@@ -178,7 +178,7 @@ public class CommissionSalesEmployeePanel extends JPanel
                     if (counter == 6) //You replace the code below with a call to submit the data to the database
                     {
                         //First, create our Employee based on User Inputs
-                        Employee tempEmp = new CommissionSalesEmployee(
+                        CommissionSalesEmployee tempEmp = new CommissionSalesEmployee(
                                 Service.getEmpId(),
                                 txtFirstName.getText(),
                                 txtLastName.getText(),

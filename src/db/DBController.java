@@ -22,7 +22,7 @@ public class DBController {
     private static ArrayList<Invoice> invoices = new ArrayList<>();
     private static final String DB_URL = "jdbc:mysql://localhost/javamart";
     private static final String userName = "root";
-    private static final String password = "root";
+    private static final String password = "chaoss";
     private static String QRY = null;
     private static Connection conn = null;
     private static Statement stat = null;
@@ -33,8 +33,9 @@ public class DBController {
      */
     private static void openConnection() {        
         try {            
-            if (conn == null)
-                conn = DriverManager.getConnection(DB_URL, userName, password);            
+            if (conn == null || conn.isClosed())
+                conn = DriverManager.getConnection(DB_URL, userName, password);    
+            System.out.println("Connection has been opened");
         }
         catch(SQLException error) {
             error.printStackTrace();
@@ -51,6 +52,7 @@ public class DBController {
         try {
             if (conn != null)
                 conn.close();
+            System.out.println("Connection has been closed");
         }   
         catch (SQLException error) {
             error.printStackTrace();
@@ -218,20 +220,29 @@ public class DBController {
      *           DB WRITE Methods
      **************************************/
     
-    public static void createEmployee(Employee employee) {
+    public static void createEmployee(CommissionSalesEmployee employee) {
         
         try {
             openConnection();
             stat = conn.createStatement();            
-            QRY = "INSERT INTO EMPLOYEES "
-                    + "VALUES("
+            QRY = "INSERT INTO employees ("
+                    + "firstName, "
+                    + "lastName, "
+                    + "position, "
+                    + "department, "
+                    + "address, "
+                    + "phone, "
+                    + "sin, "
+                    + "commissionRate"
+                    + ") VALUES ("
                     + employee.getFirstName() + ", "
                     + employee.getLastName() + ", "
                     + employee.getPosition() + ", "
                     + employee.getDepartment() + ", "
                     + employee.getAddress() + ", "
                     + employee.getPhone() + ", "
-                    + employee.getSin() + ");";                    
+                    + employee.getSin() + ", "
+                    + employee.getCommissionRate() + ")";                    
             stat.executeUpdate(QRY);            
         }
         catch(SQLException error) {
@@ -251,7 +262,7 @@ public class DBController {
         try {
             openConnection();
             stat = conn.createStatement();            
-            QRY = "INSERT INTO PRODUCTS "
+            QRY = "INSERT INTO products "
                     + "VALUES("
                     + product.getName() + ", "
                     + product.getDescription() + ", "
@@ -279,7 +290,7 @@ public class DBController {
         try {
             openConnection();
             stat = conn.createStatement();            
-            QRY = "INSERT INTO MANUFACTURERS " 
+            QRY = "INSERT INTO manufacturers " 
                     + "VALUES(" 
                     + manufacturer.getName() 
                     + ");";
