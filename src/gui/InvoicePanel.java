@@ -87,7 +87,8 @@ public class InvoicePanel extends JPanel
         );
         
         JPanel btnPaneMain = new JPanel();
-        btnPaneMain.setLayout(new FlowLayout());
+        btnPaneMain.setLayout(new BorderLayout());
+        
         btnPaneMain.add(btnCalc);
         btnPaneMain.add(btnClear);
         
@@ -123,7 +124,7 @@ public class InvoicePanel extends JPanel
         add(addProdPane);
         add(new JScrollPane(lstSelectedProds));
         add(lblTotalCost);
-        add(txtTotalCost);
-        add(btnPaneMain);       
+        add(txtTotalCost);       
+        add(btnPaneMain, BorderLayout.SOUTH);
     }
 }
