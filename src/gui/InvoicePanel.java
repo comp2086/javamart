@@ -12,7 +12,6 @@ import inventory.Product;
  */
 public class InvoicePanel extends JPanel
 {
-    //components
     //labels
     private final JLabel lblTotalCost, lblEmployees, lblProducts;
     
@@ -22,23 +21,38 @@ public class InvoicePanel extends JPanel
     //buttons
     private final JButton btnCalc, btnClear, btnCreate, btnAddEmployee, btnAddProduct;
     
-    //comboboxes
-    private final JList<String> lstEmployees, lstProducts, lstSelectedEmps, lstSelectedProds;
+    //Lists
+    private JList<Employee> lstEmployees;
+    private JList<Product>  lstProducts;
+    private JList<Employee> lstSelectedEmps;
+    private JList<Product> lstSelectedProds;
     
-    private DefaultListModel<Employee> modelEmps = new DefaultListModel();
-    private DefaultListModel<Product> modelProds = new DefaultListModel();
-    private DefaultListModel<Employee> modelSelectedEmps = new DefaultListModel();
-    private DefaultListModel<Product> modelSelectedProds = new DefaultListModel();
+    //Models for lists
+    private DefaultListModel<Employee> modelEmps;
+    private DefaultListModel<Product> modelProds;
+    private DefaultListModel<Employee> modelSelectedEmps;
+    private DefaultListModel<Product> modelSelectedProds;
     
     public InvoicePanel()
     {
-        // Layout
+        // Border and layout
         setLayout(new GridLayout(3,3));
+        setBorder(BorderFactory.createTitledBorder("Invoice Information"));
         GridBagConstraints gbc = new GridBagConstraints();
         
-        // Get all data from the database
-        DBController.populateEmployees();
-        DBController.populateProducts();
+        // Labels
+        lblTotalCost = new JLabel("Total Cost:");
+        lblEmployees = new JLabel("Employee:");
+        lblProducts = new JLabel("Product:");
+        
+        // Text felds
+        txtTotalCost = new JTextField(15);
+        
+        // Initialize List models
+        modelEmps = new DefaultListModel();
+        modelProds = new DefaultListModel();
+        modelSelectedEmps = new DefaultListModel();
+        modelSelectedProds = new DefaultListModel();
         
         // Employee and product selection lists
         for(int i = 0; i < DBController.getEmployees().size(); i++) {
@@ -51,39 +65,75 @@ public class InvoicePanel extends JPanel
         }
         lstProducts = new JList(modelProds);
         
-        lstSelectedProds = new JList();
-        lstSelectedEmps = new JList();
+        // Lists for employees and products that were selected from the Employee and Product selection lists
+        lstSelectedEmps = new JList(modelSelectedEmps);
+        lstSelectedProds = new JList(modelSelectedProds);
         
+        // Customize list display areas
         lstEmployees.setVisibleRowCount(5);
         lstSelectedEmps.setVisibleRowCount(5);
         lstEmployees.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         lstSelectedEmps.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        
         lstProducts.setVisibleRowCount(5);
         lstSelectedProds.setVisibleRowCount(5);
         lstProducts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         lstSelectedProds.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         
+        // Calculate invoice cost
         btnCalc = new JButton("Calculate Cost");
-        btnClear = new JButton("Clear All");
-        btnClear.addActionListener(
-            e -> { ; }
+        btnCalc.addActionListener(
+            event -> {
+                double totalCost = 0;
+                
+                // Get the price of all products included in the invoice
+                for (int i = 0; i < modelSelectedProds.getSize(); i ++) {
+                    totalCost += modelSelectedProds.getElementAt(i).getPrice();
+                }    
+
+                txtTotalCost.setText(Double.toString(totalCost));
+            }
         );
         
+        // Clear the form
+        btnClear = new JButton("Clear All");
+        btnClear.addActionListener(
+            // Clear all models for lists that hold selected employees/products
+            event -> { 
+                txtTotalCost.setText("");
+                modelSelectedEmps.clear();
+                modelSelectedProds.clear();
+            }
+        );
+        
+        // Create invoice and store it in the DB
         btnCreate = new JButton("Create Invoice");
         
+        // Add employee to a new invoice
         btnAddEmployee = new JButton("Add >>");
-        /*btnAddEmployee.addActionListener(
-                e -> {
-                for(int i = 0; i < employees.length; i++) {
-                    modelEmps.add(i, employees[i]);
+        btnAddEmployee.addActionListener(
+                event -> {
+                // Clear the previously existing model    
+                modelSelectedEmps.clear();
+                
+                // Add all selected items to the model of selected employees list
+                for(Employee e : lstEmployees.getSelectedValuesList()) {
+                    modelSelectedEmps.addElement(e);
                 }
             }
-        );*/
+        );
         
+        // Add product to a new invoice
         btnAddProduct = new JButton("Add >>");
         btnAddProduct.addActionListener(
-            e -> {lstSelectedProds.setListData(lstProducts.getSelectedValuesList().toArray(new String[0]));}
+                event -> {
+                // Clear the previously existing model    
+                modelSelectedProds.clear();
+                
+                // Add all selected items to the model of selected products list
+                for(Product p : lstProducts.getSelectedValuesList()) {
+                    modelSelectedProds.addElement(p);
+                }
+            }
         );
         
         JPanel btnPaneMain = new JPanel();
@@ -103,17 +153,6 @@ public class InvoicePanel extends JPanel
         gbc.gridx = 1;
         gbc.gridy = 3;
         addProdPane.add(btnAddProduct, gbc);
-        
-        // Labels
-        lblTotalCost = new JLabel("Total Cost:");
-        lblEmployees = new JLabel("Employee:");
-        lblProducts = new JLabel("Product:");
-        
-        // Text felds
-        txtTotalCost = new JTextField(15);
-
-        // Border
-        setBorder(BorderFactory.createTitledBorder("Invoice Information"));
         
         add(lblEmployees);
         add(new JScrollPane(lstEmployees));
