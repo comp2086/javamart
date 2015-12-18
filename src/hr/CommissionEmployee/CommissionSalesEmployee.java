@@ -21,14 +21,12 @@ public class CommissionSalesEmployee extends Employee
     {
     }
     
-    public CommissionSalesEmployee(String firstName, String lastName, String position,
-                                   String department, String address, String phone,
-                                   String sin, double commissionRate)
+    public CommissionSalesEmployee(int id, String firstName, String lastName, 
+                                   String position, String department, String address, 
+                                   String phone, String sin, double commissionRate)
     {
-        super(firstName, lastName, position,department, address, phone, sin);
-        
-        setCommissionRate(commissionRate);
-        
+        super(id, firstName, lastName, position,department, address, phone, sin);        
+        setCommissionRate(commissionRate);        
     }
     
     /**********Override Earning calculation******************/

@@ -26,31 +26,6 @@ public class DBController {
     private static Statement stat = null;
     private static ResultSet rs = null;
     
-    
-    public static void main (String[] args) {
-        
-        try {
-            openConnection();
-            
-            populateEmployees();
-            populateProducts();
-            
-            System.out.println(employees.get(0).getFullName());
-            System.out.println(products.get(0).getName());
-        }
-        catch(Exception e) {
-            System.out.println("Exception : ");
-            e.printStackTrace();
-        }
-        finally {
-            closeConnection();
-        }
-        
-        
-        closeConnection();
-        
-    }//main
-    
     /**
      * DB Connection
      */
@@ -93,10 +68,21 @@ public class DBController {
         try {
             openConnection();
             stat = conn.createStatement();
-            QRY = "SELECT * FROM Employees";
+            QRY = "SELECT "
+                    + "id, "
+                    + "firstName, "
+                    + "lastName, "
+                    + "position, "
+                    + "department, "
+                    + "address, "
+                    + "phone, "
+                    + "sin, "
+                    + "commissionRate\n"
+                    + "FROM employees;";
             rs = stat.executeQuery(QRY);
             while (rs.next()) {
-                employees.add(new CommissionSalesEmployee(                        
+                employees.add(new CommissionSalesEmployee(    
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -124,17 +110,29 @@ public class DBController {
         try {
             openConnection();
             stat = conn.createStatement();
-            QRY = "SELECT * FROM Products";
+            QRY = "SELECT "
+                    + "prod.id \"product id\", "
+                    + "prod.name, "
+                    + "description, "
+                    + "serialNumber, "
+                    + "cost, "
+                    + "price, "
+                    + "availability, "
+                    + "manu.name \"manufacturer\"\n"
+                    + "FROM products prod\n"
+                    + "INNER JOIN manufacturers manu\n"
+                    + "ON prod.manId = manu.id;";
             rs = stat.executeQuery(QRY);
             while (rs.next()) {
                 products.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7),
-                        rs.getBoolean(8),
-                        new Manufacturer("Manu")
+                        rs.getBoolean(7),
+                        new Manufacturer(rs.getString(8))
                 ));
             }            
         }

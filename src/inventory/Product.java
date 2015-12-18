@@ -35,9 +35,10 @@ public class Product
      * @param availablitiy
      * @manu
      */
-    public Product(String name, String description, String serialNumber,
+    public Product(int id, String name, String description, String serialNumber,
                   String cost, String price, boolean availablitiy, Manufacturer manu)
     {
+        setId(id);
         setName(name);
         setDescription(description);
         setSerialNumber(serialNumber);
