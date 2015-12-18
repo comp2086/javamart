@@ -124,17 +124,18 @@ public class DBController {
         }
     }
     
-    public static void populateInvoices() {
+    public static void createInvoice(Invoice invoice) {
         
         try {
             openConnection();
             stat = conn.createStatement();
-            QRY = "SELECT * FROM Invoices";
-            rs = stat.executeQuery(QRY);
             
-            while(rs.next()) {
-                
-            }
+            // Insert into invoice table
+            QRY = "INSERT INTO INVOICE(COST) VALUES(" + invoice.getTotalCost() + ")";
+            stat.executeUpdate(QRY);
+            
+            // Insert employeeId and productId into invoice junction table
+            
         }
         catch(SQLException error) {
             error.printStackTrace();
