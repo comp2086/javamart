@@ -4,6 +4,7 @@
  * Handles our gui
  */
 package gui;
+import db.DBController;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,6 +18,10 @@ public class JMartGui extends JFrame
     {
         super("JMart");
         setLayout(new BorderLayout());
+        
+        // Get all data from the database
+        DBController.populateEmployees();
+        DBController.populateProducts();
         
         //create the tab container
         JTabbedPane tabPane = new JTabbedPane();
