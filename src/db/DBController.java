@@ -136,9 +136,13 @@ public class DBController {
                 ids[i] = rs.getInt(1);
             }
             Service.initializeIds(ids[0], ids[1], ids[2], ids[3]);
+            System.out.println("Latest IDs have been set for Service Class");
         }
         catch(SQLException error) {
             error.printStackTrace();
+        }
+        catch(NullPointerException error) {            
+            System.out.println("The records you are trying to access don't exist");
         }
         catch(Exception error) {
             error.printStackTrace();
@@ -173,10 +177,14 @@ public class DBController {
                         rs.getString(8),//sin
                         rs.getDouble(9)//commissionRate
                 ));
-            }           
+            }        
+            System.out.println("Employees ArayList has been populated");         
         }
         catch(SQLException error) {
             error.printStackTrace();
+        }
+        catch(NullPointerException error) {            
+            System.out.println("No Employees exist in the DB");
         }
         catch(Exception error) {
             error.printStackTrace();
@@ -211,10 +219,14 @@ public class DBController {
                         rs.getBoolean(7),//availability
                         new Manufacturer(rs.getString(8))//manufacturer
                 ));
-            }            
+            }      
+            System.out.println("Products ArayList has been populated");      
         }
         catch(SQLException error) {
             error.printStackTrace();
+        }
+        catch(NullPointerException error) {
+            System.out.println("No Products exist in the DB");
         }
         catch(Exception error) {
             error.printStackTrace();
@@ -234,9 +246,13 @@ public class DBController {
                         rs.getString(1)//name
                 ));
             }
+            System.out.println("Manufacturers ArrayList has been populated");
         }
         catch(SQLException error) {
             error.printStackTrace();
+        }
+        catch(NullPointerException error) {
+            System.out.println("No Manufacturers exist in the DB");
         }
         catch(Exception error) {
             error.printStackTrace();
@@ -270,7 +286,8 @@ public class DBController {
                     + employee.getPhone() + ", "
                     + employee.getSin() + ", "
                     + employee.getCommissionRate() + ")";                    
-            stat.executeUpdate(QRY);            
+            stat.executeUpdate(QRY);    
+            System.out.println("Employee has been created");        
         }
         catch(SQLException error) {
             error.printStackTrace();
@@ -298,7 +315,8 @@ public class DBController {
                     + product.getPrice() + ", "
                     + product.getAvailability() 
                     + ");";
-            stat.executeUpdate(QRY);            
+            stat.executeUpdate(QRY);   
+            System.out.println("Product has been created");
         }
         catch(SQLException error) {
             error.printStackTrace();
@@ -308,8 +326,7 @@ public class DBController {
         }
         finally {
             closeConnection();
-        }
-        
+        }        
     }
     
     public static void createManufacturer(Manufacturer manufacturer) {
@@ -321,8 +338,7 @@ public class DBController {
                     + "VALUES(" 
                     + manufacturer.getName() 
                     + ");";
-            stat.executeUpdate(QRY);
-            
+            stat.executeUpdate(QRY);            
         }
         catch(SQLException error) {
             error.printStackTrace();
