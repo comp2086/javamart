@@ -20,9 +20,10 @@ public class DBController {
     private static ArrayList<Product> products = new ArrayList<>();
     private static ArrayList<Manufacturer> manufacturers = new ArrayList<>();
     private static ArrayList<Invoice> invoices = new ArrayList<>();
-    private static final String DB_URL = "jdbc:mysql://localhost/javamart";
-    private static final String userName = "root";
-    private static final String password = "root";
+    //private static final String DB_URL = "jdbc:mysql://localhost/javamart";
+    private static final String DB_URL = "jdbc:mysql://sql.computerstudi.es:3306/gc200286902";
+    private static final String userName = "gc200286902";
+    private static final String password = "ZMLQQ2ad";
     private static String QRY = null;
     private static Connection conn = null;
     private static Statement stat = null;
@@ -34,7 +35,8 @@ public class DBController {
     private static void openConnection() {        
         try {            
             if (conn == null)
-                conn = DriverManager.getConnection(DB_URL, userName, password);            
+                conn = DriverManager.getConnection(DB_URL, userName, password);
+                System.out.println("Successfully connected");            
         }
         catch(SQLException error) {
             error.printStackTrace();
@@ -218,21 +220,28 @@ public class DBController {
      *           DB WRITE Methods
      **************************************/
     
-    public static void createEmployee(Employee employee) {
-        
+    //public static void createEmployee(Employee employee) {
+       public static void createCommissionSalesEmployee(CommissionSalesEmployee employee) { 
+           
         try {
             openConnection();
-            stat = conn.createStatement();            
-            QRY = "INSERT INTO EMPLOYEES "
+            System.out.println("Started inserting data");
+            stat = conn.createStatement(); 
+            
+            QRY = "INSERT INTO COMMISSIONSALESEMPLOYEE "
                     + "VALUES("
+                    + employee.getId() + ", "
                     + employee.getFirstName() + ", "
                     + employee.getLastName() + ", "
                     + employee.getPosition() + ", "
                     + employee.getDepartment() + ", "
                     + employee.getAddress() + ", "
                     + employee.getPhone() + ", "
-                    + employee.getSin() + ");";                    
-            stat.executeUpdate(QRY);            
+                    + employee.getSin() + ", "
+                    + employee.getCommissionRate()
+                    + ");";                    
+            stat.executeUpdate(QRY);
+            System.out.println("Data inserted");
         }
         catch(SQLException error) {
             error.printStackTrace();

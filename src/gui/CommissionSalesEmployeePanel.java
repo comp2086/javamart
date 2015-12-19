@@ -178,7 +178,7 @@ public class CommissionSalesEmployeePanel extends JPanel
                     if (counter == 6) //You replace the code below with a call to submit the data to the database
                     {
                         //First, create our Employee based on User Inputs
-                        Employee tempEmp = new CommissionSalesEmployee(
+                        CommissionSalesEmployee tempEmp = new CommissionSalesEmployee(
                                 Service.getEmpId(),
                                 txtFirstName.getText(),
                                 txtLastName.getText(),
@@ -192,7 +192,7 @@ public class CommissionSalesEmployeePanel extends JPanel
                         //Second, add the employee to local memory
                         DBController.getEmployees().add(tempEmp);
                         //Third, add the employee to DB
-                        DBController.createEmployee(tempEmp);
+                        DBController.createCommissionSalesEmployee(tempEmp);
                     }
                     //System.out.println(counter);
                     //System.out.println(jList.size());
