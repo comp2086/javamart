@@ -1,7 +1,7 @@
 package db;
 
 /**
- *
+ * This class performs all ID generation services across the application.
  * @author Dan Masci - 200299037
  */
 public class Service {

@@ -8,7 +8,7 @@ import invoice.Invoice;
 
 
 /**
- *
+ * This class displays a JPanel with information relating to invoicing.
  * @author Alex Andriishyn, 200296533
  */
 public class InvoicePanel extends JPanel
@@ -151,24 +151,29 @@ public class InvoicePanel extends JPanel
             }
         );
         
+        //add button pane
         JPanel btnPaneMain = new JPanel();
         btnPaneMain.setLayout(new GridBagLayout());
         
+        //add buttons to button pane
         btnPaneMain.add(btnCalc);
         btnPaneMain.add(btnClear);
         
+        //add add employee pane
         JPanel addEmpPane = new JPanel();
         addEmpPane.setLayout(new GridBagLayout());
         gbc.gridx = 1;
         gbc.gridy = 3;
         addEmpPane.add(btnAddEmployee, gbc);
         
+        //add add product pane
         JPanel addProdPane = new JPanel();
         addProdPane.setLayout(new GridBagLayout());
         gbc.gridx = 1;
         gbc.gridy = 3;
         addProdPane.add(btnAddProduct, gbc);
         
+        //add labels and display boxes
         add(lblEmployees);
         add(new JScrollPane(lstEmployees));
         add(addEmpPane);

@@ -1,7 +1,7 @@
 /**
  * Anthony Scinocco
  * November 12, 2015
- * Handles our gui
+ * Constructs and handles our GUI.
  */
 package gui;
 import db.DBController;
@@ -11,11 +11,14 @@ import javax.swing.*;
 
 public class JMartGui extends JFrame
 {
+    //initialize variables
     private JPanel centerPanel, northPanel, southPanel;
     private JButton exitButton;
     
+    //constructor
     public JMartGui()
     {
+        //JFrame config
         super("JMart");
         setLayout(new BorderLayout());
         

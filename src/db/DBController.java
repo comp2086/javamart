@@ -8,7 +8,9 @@ import inventory.Product;
 import invoice.Invoice;
 
 /**
- *
+ * This class allows other classes to interact with the MySQL database.
+ * All methods are static so as to be accessed with ease throughout the
+ * application.
  * @author Dan Masci - 200299037
  */
 public class DBController {
@@ -80,6 +82,7 @@ public class DBController {
         return invoices;
     }
     
+    //populate all the local values
     public static void populateLocal() {
         openConnection();
         populateEmployees();
@@ -149,6 +152,9 @@ public class DBController {
         }        
     }
     
+    /**
+     * Runs query for grabbing Employee data.
+     */
     public static void populateEmployees() {
         
         try {
@@ -191,6 +197,9 @@ public class DBController {
         }
     }//populateEmployees
     
+    /**
+     * Runs query for grabbing product data.
+     */
     public static void populateProducts() {
 
         try {
@@ -233,6 +242,9 @@ public class DBController {
         }
     }//populateProducts
     
+    /**
+     * Runs query for grabbing manufacturer data
+     */
     public static void populateManufacturers() {
         
         try {
@@ -263,6 +275,10 @@ public class DBController {
      *           DB WRITE Methods
      **************************************/
     
+    /**
+     * Create a new employee in the database.
+     * @param employee 
+     */
     public static void createEmployee(CommissionSalesEmployee employee) {
         
         try {
@@ -301,6 +317,10 @@ public class DBController {
         
     }
     
+    /**
+     * Create a new product in the database.
+     * @param product 
+     */
     public static void createProduct(Product product) {
         
         try {
@@ -329,6 +349,10 @@ public class DBController {
         }        
     }
     
+    /**
+     * Create a new manufacturer in the database.
+     * @param manufacturer 
+     */
     public static void createManufacturer(Manufacturer manufacturer) {
         
         try {
@@ -352,6 +376,10 @@ public class DBController {
         
     }
     
+    /**
+     * Create a new invoice in the database.
+     * @param invoice 
+     */
     public static void createInvoice(Invoice invoice) {
         
         try {
@@ -401,4 +429,4 @@ public class DBController {
     
     
     
-}
+}//end class
